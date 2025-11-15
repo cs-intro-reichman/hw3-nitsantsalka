@@ -28,22 +28,68 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		str1 = preProcess(str1);
+		str2 = preProcess(str2);
+		if (str1.length() >= str2.length()){
+			for (int i = 0 ; i < str1.length() ; i++ ){
+				for (int j = 0 ; j < str2.length() ; j++){
+					if (str1.charAt(i) == str2.charAt(j)){
+						str2 = str2.substring(j+1, str2.length());
+					}
+				}
+			}
+			if (str2.length() > 0){
+				return false;
+			}
+		}
+		else {
+			for (int i = 0 ; i < str2.length() ; i++ ){
+				for (int j = 0 ; j < str1.length() ; j++){
+					if (str2.charAt(i) == str1.charAt(j)){
+						str1 = str1.substring(j+1, str1.length());
+					}
+				}
+			}	
+			if (str1.length() > 0){
+				return false;
+			}		
+		}
+		return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
-	// to lower-case, and all the other characters are deleted, except for spaces, which are left
-	// as is. For example, the string "What? No way!" becomes "whatnoway"
+	// to lower-case, and all the other characters are deleted.
+	// For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		String newStr = "";
+		str = str.toLowerCase();
+		for (int i = 0; i < str.length() ; i++ ){
+			if (((str.charAt(i) >= 97) && (str.charAt(i) <= 122))){
+				newStr = newStr + str.charAt(i);	
+			}
+		}
+		return newStr;
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		int ran;
+		String ang = "";
+		String str1 = "";
+		while (str.length() > 0){
+			ran = (int)(Math.random() * str.length());
+			ang = ang + str.charAt(ran);
+			if(ran == 0){
+				str1 = str.substring(1, str.length());
+			}
+			else{
+			str1 = str.substring(0, ran);
+			str1 = str1 + str.substring(ran + 1, str.length());
+			}
+			str = str1;
+		}
+		return ang;
 	}
 }
+
